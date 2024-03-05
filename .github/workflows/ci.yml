@@ -21,6 +21,10 @@ env:
   CD_DESTINATION_OWNER: ${{ vars.CD_DESTINATION_OWNER }}
   CD_PROJECT: ${{ vars.CD_PROJECT }}
 
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   get_inputs:
@@ -35,6 +39,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
         with:
+          role-to-assume: arn:aws:iam::975050185389:role/github-access
           aws-region: ${{ env.AWS_REGION }}
           mask-aws-account-id: "false"
       - name: Install AWS cli
@@ -55,6 +60,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4 # More information on this action can be found below in the 'AWS Credentials' section
         with:
+          role-to-assume: arn:aws:iam::975050185389:role/github-access
           aws-region: ${{ env.AWS_REGION }}
           mask-aws-account-id: "false"
       - name: Login to Amazon ECR
