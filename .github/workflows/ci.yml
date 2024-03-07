@@ -65,10 +65,10 @@ jobs:
           mask-aws-account-id: "false"
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@v1
       - name: Build api image and push to ECR
         env:
-          IMAGE_TAG: 1.0.1
+          SHA8: ${{ needs.get_inputs.outputs.sha8 }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "api"
         run: |
@@ -77,7 +77,7 @@ jobs:
           sudo docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG
       - name: Build ui image and push to ECR
         env:
-          IMAGE_TAG: 1.0.1
+          SHA8: ${{ needs.get_inputs.outputs.sha8 }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "ui"
         run: |
@@ -86,7 +86,7 @@ jobs:
           sudo docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG
       - name: Build lambda image and push to ECR
         env:
-          IMAGE_TAG: 1.0.1
+          SHA8: ${{ needs.get_inputs.outputs.sha8 }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "lambda"
         run: |
