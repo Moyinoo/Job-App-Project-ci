@@ -89,6 +89,7 @@ jobs:
           COMPONENT_NAME: "lambda"
         run: |
           sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8 src/api/
+          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 975050185389.dkr.ecr.us-east-1.amazonaws.com
           sudo docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8
 
   k8s_manifest_storing:
