@@ -72,7 +72,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "api"
         run: |
-          sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8 src/$COMPONENT_NAME/
+          sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG src/$COMPONENT_NAME/
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 975050185389.dkr.ecr.us-east-1.amazonaws.com
           sudo docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG
       - name: Build ui image and push to ECR
@@ -81,7 +81,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "ui"
         run: |
-          sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8 src/$COMPONENT_NAME/
+          sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG src/$COMPONENT_NAME/
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 975050185389.dkr.ecr.us-east-1.amazonaws.com
           sudo docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG
       - name: Build lambda image and push to ECR
@@ -90,7 +90,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "lambda"
         run: |
-          sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8 src/api/
+          sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG src/api/
           sudo docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$IMAGE_TAG
 
   k8s_manifest_storing:
