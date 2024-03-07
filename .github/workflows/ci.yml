@@ -71,6 +71,8 @@ jobs:
           IMAGE_TAG: ${{ needs.get_inputs.outputs.sha8 }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: "prod/api"
+          SHA8: ${{ needs.get_inputs.outputs.sha8 }}
+          COMPONENT_NAME: "api"
         run: |
           sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG src/$COMPONENT_NAME/
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 975050185389.dkr.ecr.us-east-1.amazonaws.com
@@ -80,6 +82,8 @@ jobs:
           IMAGE_TAG: ${{ needs.get_inputs.outputs.sha8 }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: "prod/ui"
+          SHA8: ${{ needs.get_inputs.outputs.sha8 }}
+          COMPONENT_NAME: "ui"
         run: |
           sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG src/$COMPONENT_NAME/
           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 975050185389.dkr.ecr.us-east-1.amazonaws.com
@@ -89,6 +93,8 @@ jobs:
           IMAGE_TAG: ${{ needs.get_inputs.outputs.sha8 }}
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: "prod/lambda"
+          SHA8: ${{ needs.get_inputs.outputs.sha8 }}
+          COMPONENT_NAME: "lambda"
         run: |
           sudo docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG src/api/
           sudo docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
