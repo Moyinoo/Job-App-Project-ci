@@ -51,7 +51,7 @@ jobs:
 
   build_images_and_push:
     needs: [get_inputs]
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     outputs:
       registry: ${{ steps.login-ecr.outputs.registry }}
     steps:
@@ -95,7 +95,7 @@ jobs:
 
   k8s_manifest_storing:
     needs: [build_images_and_push, get_inputs]
-    runs-on: ubuntu latest
+    runs-on: ubuntu-latest
     container:
       image: alpine/helm:latest
     steps:
