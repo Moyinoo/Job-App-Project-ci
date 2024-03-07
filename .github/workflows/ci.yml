@@ -31,7 +31,7 @@ jobs:
     outputs:
       sqs_arn: ${{ steps.aws_resources.outputs.sqs_arn }}
       sha8: ${{ steps.slug.outputs.sha8 }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Get short SHA
         id: slug
@@ -51,7 +51,7 @@ jobs:
 
   build_images_and_push:
     needs: [get_inputs]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     outputs:
       registry: ${{ steps.login-ecr.outputs.registry }}
     steps:
@@ -101,7 +101,7 @@ jobs:
 
   k8s_manifest_storing:
     needs: [build_images_and_push, get_inputs]
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     container:
       image: alpine/helm:latest
     steps:
