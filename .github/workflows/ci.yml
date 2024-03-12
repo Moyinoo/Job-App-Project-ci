@@ -84,7 +84,6 @@ jobs:
           docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8
       - name: Copy lambda directory
         run: |
-          ssh -i "prod-devops.pem" ubuntu@ec2-34-236-60-38.compute-1.amazonaws.com
           scp -r $GITHUB_WORKSPACE/src/api ubuntu@ec2-34-236-60-38.compute-1.amazonaws.com:/home/go/
       - name: Build lambda image and push to ECR
         env:
