@@ -65,7 +65,7 @@ jobs:
           mask-aws-account-id: "false"
       - name: Login to Amazon ECR
         id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
       - name: Build api image and push to ECR
         env:
           SHA8: ${{ needs.get_inputs.outputs.sha8 }}
