@@ -82,6 +82,9 @@ jobs:
         run: |
           docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8 src/$COMPONENT_NAME/
           docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8
+      - name: Copy lambda directory
+        run: |
+          scp -r $GITHUB_WORKSPACE/src/api ubuntu@ec2.34.236.60.38:/home/go/
       - name: Build lambda image and push to ECR
         env:
           SHA8: ${{ needs.get_inputs.outputs.sha8 }}
