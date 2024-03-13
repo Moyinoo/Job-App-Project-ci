@@ -88,6 +88,7 @@ jobs:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           COMPONENT_NAME: "lambda"
         run: |
+          cd ~/actions-runner/_work/Job-App-Project-ci/Job-App-Project-ci/src
           docker build -f .devops/docker/$COMPONENT_NAME.dockerfile -t $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8 src/api/$COMPONENT_NAME/
           docker push $REGISTRY/$ENVIRONMENT/$COMPONENT_NAME:$SHA8
 
