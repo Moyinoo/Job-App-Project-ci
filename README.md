@@ -1,7 +1,7 @@
 
 
 # Application definition and overview
-This is application was taking from an open source learning platform and is designed for testing and learning purpose. The application itself, like the entire project, is intended to cover a broader scope under the hood. The application's main task, consisting of frontend and backend, is to convert requested HTML pages to PDF and save these files with the possibility of having convenient authorized access to these objects through UI. It looks simple, but in the path of the whole operations cycle, we face several services from the world of AWS: RDS, SQS Lambda, DynamoDB, and S3.
+This is application source code was taking from an open source learning platform and is designed for testing and learning purpose. The application itself, like the entire project, is intended to cover a broader scope under the hood. The application's main task, consisting of frontend and backend, is to convert requested HTML pages to PDF and save these files with the possibility of having convenient authorized access to these objects through UI. It looks simple, but in the path of the whole operations cycle, we face several services from the world of AWS: RDS, SQS Lambda, DynamoDB, and S3.
 
 ## Application Architecture
 ![Screenshot](img/arch.png)
