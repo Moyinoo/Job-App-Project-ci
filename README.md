@@ -1,10 +1,7 @@
-# Overview
 
-This repository is an integral part of the learning project designed for training purposes. It contains the application code and its CI for integration into the infrastructure described in this repository:
-https://github.com/tntk-io/tntk-infra
 
 # Application definition and overview
-This is a learning application that is designed for those who are learning DevOps. The application itself, like the entire project, is intended to cover a broader scope under the hood. The application's main task, consisting of frontend and backend, is to convert requested HTML pages to PDF and save these files with the possibility of having convenient authorized access to these objects through UI. It looks simple, but in the path of the whole operations cycle, we face several services from the world of AWS: RDS, SQS Lambda, DynamoDB, and S3.
+This is application was taking from an open source learning platform and is designed for testing and learning purpose. The application itself, like the entire project, is intended to cover a broader scope under the hood. The application's main task, consisting of frontend and backend, is to convert requested HTML pages to PDF and save these files with the possibility of having convenient authorized access to these objects through UI. It looks simple, but in the path of the whole operations cycle, we face several services from the world of AWS: RDS, SQS Lambda, DynamoDB, and S3.
 
 ## Application Architecture
 ![Screenshot](img/arch.png)
@@ -170,9 +167,6 @@ In simple terms, Argo CD will scan the state of our GitOps repository and automa
 
 It is important to note that we have a component called a Lambda function that exists outside the EKS cluster. Kubernetes does not have built-in tools for managing such resources. We could use an integration approach to update the Lambda function code but Lambda deployment require a separate deployment pipeline. This approach would contradict the GitOps practice and We need to fully delegate the management of the application's state to Kubernetes. To achieve this, we will use AWS Controllers for Kubernetes (ACK), specifically ACK Lambda. This controller allows us to manage Lambda functions based on Kubernetes manifests. Therefore, we can declaratively define manifests for the Lambda function and store them in a GitOps repository, which aligns with the GitOps practice.
 
-Additional info about ACK Lambda:
-
-https://aws.amazon.com/blogs/compute/deploying-aws-lambda-functions-using-aws-controllers-for-kubernetes-ack/
 
 ## Interaction of the components
 
@@ -197,19 +191,4 @@ Repositories themselves for CI/CD.
 
 # Application deployment
 
-
-
-After deploying infrastructure from https://github.com/tntk-io/tntk-infra repository we moving to application section. In this section we will deploy our application to our infastructure.
-
-> Make sure that you have created the <b>CD repository</b> (in our case tntk-io/tntk-cd) before stat CI. This repository should not be public since it performs operational load and contains manifests with information that should not be distributed. It is necessary to create two branches in this repository: dev and prod.
-
-1. Add Github secret to Repository Settings → Secrets and variables → Actions → Secrets ("API_TOKEN_GITHUB" with Github token as value).
-2. Add Github variables to Repository Settings → Secrets and variables → Actions → Variables ("ACCOUNT_ID", "APPLICATION_NAME", "APPLICATION_NAMESPACE", "AWS_REGION", "BASE_DOMAIN", "CD_DESTINATION_OWNER", "CD_PROJECT").
-3. Trigger CI pipeline. Our integration process depends on commit SHA and the easiest way to start new build is make a empty commit to the CI branch.
-   Trigger CI pipeline by pushing new commit to project src repo:
-   git commit --allow-empty -m "test emplty commit"
-4. Wait for the CI process to finish.
-5. Get argocd default admin password. We can get it inside AWS "EKS" service → EKS-cluster → Resources → Config and secrets → Secrets → "argocd-initial-admin-secret" → password "decode".
-6. Login to argo CD and check sync of "demo" application. (e.g. "https://argo.prod.example.com/").
-7. Check the application (e.g. "https://demoapp.prod.example.com/").
-8. Create new user and login.
+After deploying infrastructure from https://github.com/moyinoo/Job-Application-Project-Terraform-Infra repository we moving to application section. In this section we will deploy our application to our infastructure. The Manifests will be hosted in https://github.com/moyinoo/Job-App-Project-CD repo.
